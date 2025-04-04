@@ -1,25 +1,76 @@
-# Wazuh-Installation Ubuntu
-[Wazuh Installation] Guide on Installing Wazuh on Ubuntu
+---
 
-# Install Wazuh
+# 📦 Wazuh Installation on Ubuntu
+
+This is a quick-start guide for installing **Wazuh** on Ubuntu and understanding the types of security events it can detect.
+
+---
+
+## 🚀 Install Wazuh (Manager, Dashboard & Filebeat)
+
+Run the following command to download and install Wazuh:
+
 curl -sO https://packages.wazuh.com/4.11/wazuh-install.sh && sudo bash ./wazuh-install.sh -a
 
-# Check password for Dashboard etc
+This installs:
+- Wazuh Manager
+- Wazuh Dashboard
+- Filebeat (for forwarding logs to Elasticsearch)
+
+---
+
+## 🔑 Retrieve Dashboard Credentials
+
+After installation, extract the credentials needed to log into the Wazuh Dashboard:
+
 sudo tar -O -xvf wazuh-install-files.tar wazuh-install-files/wazuh-passwords.txt
 
-# Run below url
+---
+
+## 📊 Access the Wazuh Dashboard
+
+Once Wazuh is installed and running, access the dashboard by opening this URL in your browser:
+
 https://<WAZUH_DASHBOARD_IP_ADDRESS>
 
-# Check your IP
-ifconifg
+> Replace `<WAZUH_DASHBOARD_IP_ADDRESS>` with your server’s IP address.
 
-#Agent installation
+---
 
+## 🌐 Check Your IP Address
 
+To find your system's IP address:
+
+ifconfig
+
+> If `ifconfig` is not available, install it with:
+
+sudo apt install net-tools
+
+---
+
+## 🤖 Wazuh Agent Installation
+
+To install a Wazuh agent on a client machine:
+
+curl -sO https://packages.wazuh.com/4.x/apt/install.sh && sudo bash ./install.sh
+
+Connect the agent to the Wazuh manager:
+
+sudo /var/ossec/bin/agent-auth -m <WAZUH_MANAGER_IP>
+
+Enable and start the agent:
+
+sudo systemctl enable wazuh-agent  
+sudo systemctl start wazuh-agent
+
+> Replace `<WAZUH_MANAGER_IP>` with the IP address of your Wazuh manager.
+
+---
 
 ## 🔍 Security Events Detected by Wazuh
 
-Wazuh is a powerful open-source SIEM solution capable of detecting a wide variety of security events beyond simple SSH failures. Here’s an overview of the event types it can monitor and alert on:
+Wazuh is a powerful open-source SIEM solution capable of detecting a wide variety of security events. Here’s an overview of what it can monitor and alert on:
 
 ### 🔐 Authentication & Access Monitoring
 - Failed and successful login attempts (SSH, RDP, web, etc.)
@@ -65,7 +116,14 @@ Wazuh is a powerful open-source SIEM solution capable of detecting a wide variet
 - Lateral movement detection
 - Execution of suspicious scripts or binaries
 
-> Note: Detection capabilities depend on agent configuration and integrations with threat intelligence sources.
+> Note: Detection capabilities depend on agent configuration and integration with external threat intelligence sources.
 
 ---
 
+## 📚 References
+
+- Official Wazuh Documentation: https://documentation.wazuh.com/
+- Wazuh GitHub: https://github.com/wazuh/wazuh
+- Wazuh Community: https://wazuh.com/community/
+
+---
