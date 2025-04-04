@@ -1,4 +1,4 @@
-# Wazuh-Installation
+# Wazuh-Installation Ubuntu
 [Wazuh Installation] Guide on Installing Wazuh on Ubuntu
 
 # Install Wazuh
